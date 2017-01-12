@@ -1,4 +1,4 @@
-package io.symphonia.lambda;
+package io.symphonia.lambda.logging;
 
 import com.amazonaws.services.lambda.runtime.LambdaRuntimeInternal;
 import org.apache.log4j.MDC;

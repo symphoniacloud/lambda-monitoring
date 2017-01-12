@@ -1,5 +1,6 @@
 package io.symphonia.lambda.metrics;
 
+import io.symphonia.lambda.annotations.CloudwatchLogGroup;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -28,7 +29,7 @@ public class RemoveMetricFiltersMojo extends AbstractMojo {
     @Parameter(property = "dryRun", defaultValue = "false", required = true)
     private boolean dryRun;
 
-    @Parameter(defaultValue = "", required = true)
+    @Parameter(required = false)
     private String cloudwatchLogGroupName;
 
     @Parameter(required = false)
@@ -57,10 +58,19 @@ public class RemoveMetricFiltersMojo extends AbstractMojo {
                 Field metricField = metricFieldEntry.getValue();
                 String metricType = metricField.getType().getSimpleName().toUpperCase();
 
+                CloudwatchLogGroup logGroupAnnotation = metricField.getDeclaringClass().getAnnotation(CloudwatchLogGroup.class);
+                String logGroup = logGroupAnnotation != null && !logGroupAnnotation.value().isEmpty() ?
+                        logGroupAnnotation.value() : cloudwatchLogGroupName;
+
+                if (logGroup == null || logGroup.isEmpty()) {
+                    getLog().warn(String.format("No log group found for metric field [%s].", metricField.getName()));
+                    break;
+                }
+
                 List<String> metricValues = metricValueMap.get(metricType);
 
                 for (String metricValue : metricValues) {
-                    if (publisher.removeMetricFilter(cloudwatchLogGroupName, fullMetricName, metricValue)) {
+                    if (publisher.removeMetricFilter(logGroup, fullMetricName, metricValue)) {
                         metricFilterCount++;
                     }
                 }

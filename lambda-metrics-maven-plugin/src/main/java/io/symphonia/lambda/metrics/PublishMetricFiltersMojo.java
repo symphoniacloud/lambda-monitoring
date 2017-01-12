@@ -1,5 +1,6 @@
 package io.symphonia.lambda.metrics;
 
+import io.symphonia.lambda.annotations.CloudwatchLogGroup;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -46,7 +47,7 @@ public class PublishMetricFiltersMojo extends AbstractMojo {
     @Parameter(property = "dryRun", defaultValue = "false", required = true)
     private boolean dryRun;
 
-    @Parameter(defaultValue = "", required = true)
+    @Parameter(required = false)
     private String cloudwatchLogGroupName;
 
     @Parameter(required = false)
@@ -86,12 +87,21 @@ public class PublishMetricFiltersMojo extends AbstractMojo {
                     break;
                 }
 
+                CloudwatchLogGroup logGroupAnnotation = metricField.getDeclaringClass().getAnnotation(CloudwatchLogGroup.class);
+                String logGroup = logGroupAnnotation != null && !logGroupAnnotation.value().isEmpty() ?
+                        logGroupAnnotation.value() : cloudwatchLogGroupName;
+
+                if (logGroup == null || logGroup.isEmpty()) {
+                    getLog().warn(String.format("No log group found for metric field [%s].", metricField.getName()));
+                    break;
+                }
+
                 // TODO: Merge w/ default values, so overriding doesn't require complete respecification
                 String filterPatternFormat = filterPatternMap.get(metricType);
                 List<String> metricValues = metricValueMap.get(metricType);
 
                 for (String metricValue : metricValues) {
-                    if (publisher.publishMetricFilter(cloudwatchLogGroupName, fullMetricName,
+                    if (publisher.publishMetricFilter(logGroup, fullMetricName,
                             filterPatternFormat, metricValue)) {
                         metricFilterCount++;
                     }

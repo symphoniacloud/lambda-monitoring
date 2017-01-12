@@ -52,7 +52,6 @@
     </distributionManagement>
 
     <properties>
-        <aws.sdk.version>1.11.66</aws.sdk.version>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -62,13 +61,15 @@
         <dependencies>
             <dependency>
                 <groupId>com.amazonaws</groupId>
-                <artifactId>aws-lambda-java-core</artifactId>
-                <version>1.1.0</version>
+                <artifactId>aws-java-sdk-bom</artifactId>
+                <version>1.11.77</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>com.amazonaws</groupId>
-                <artifactId>aws-java-sdk-logs</artifactId>
-                <version>${aws.sdk.version}</version>
+                <artifactId>aws-lambda-java-core</artifactId>
+                <version>1.1.0</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>

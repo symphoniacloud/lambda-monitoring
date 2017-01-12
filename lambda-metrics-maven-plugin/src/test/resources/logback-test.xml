@@ -1,0 +1,10 @@
+<configuration>
+
+    <appender name="STDOUT" class="io.symphonia.lambda.metrics.logging.NonMetricsConsoleAppender"/>
+    <appender name="METRICS" class="io.symphonia.lambda.metrics.logging.MetricsConsoleAppender"/>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="METRICS" />
+    </root>
+</configuration>

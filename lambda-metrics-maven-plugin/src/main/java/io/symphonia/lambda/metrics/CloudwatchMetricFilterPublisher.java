@@ -57,7 +57,7 @@ public class CloudwatchMetricFilterPublisher implements MetricFilterPublisher {
         MetricTransformation metricTransformation = new MetricTransformation()
                 .withMetricNamespace(metricNamespace)
                 .withMetricName(metricName)
-                .withMetricValue(metricValue);
+                .withMetricValue(String.format("$%s",metricValue));
 
         PutMetricFilterRequest request = new PutMetricFilterRequest()
                 .withLogGroupName(logGroupName)

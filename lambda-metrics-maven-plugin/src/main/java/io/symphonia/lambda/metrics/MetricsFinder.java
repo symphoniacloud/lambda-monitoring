@@ -1,41 +1,36 @@
 package io.symphonia.lambda.metrics;
 
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
+import org.apache.maven.project.MavenProject;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ConfigurationBuilder;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-// TODO: Add prefix/package filtering
-
+@SuppressWarnings("WeakerAccess")
 public class MetricsFinder {
 
-    private Collection<String> classpathElements;
+    private Set<URL> classpathUrls;
 
-    public MetricsFinder(Collection<String> classpathElements) {
-        this.classpathElements = classpathElements;
+    public MetricsFinder(MavenProject project) throws MalformedURLException, DependencyResolutionRequiredException {
+        this.classpathUrls = collectClasspathUrls(project);
     }
 
-    public Map<String, Field> find() throws Exception {
-
-        List<URL> urls = new ArrayList<>();
-        for (String element : classpathElements) {
-            URL url = new File(element).toURI().toURL();
-            urls.add(url);
-        }
+    public Map<String, Field> find() throws MalformedURLException {
 
         Reflections reflections = new Reflections(
                 new ConfigurationBuilder()
-                        .setUrls(urls)
-                        .addClassLoader(new URLClassLoader(urls.toArray(new URL[0]), getClass().getClassLoader()))
+                        .setUrls(classpathUrls)
+                        .addClassLoader(new URLClassLoader(classpathUrls.toArray(new URL[0]), getClass().getClassLoader()))
                         .setScanners(new SubTypesScanner()));
 
         Map<String, Field> metricFields = new HashMap<>();
@@ -44,6 +39,22 @@ public class MetricsFinder {
         }
 
         return metricFields;
+    }
+
+    private Set<URL> collectClasspathUrls(MavenProject project) throws DependencyResolutionRequiredException, MalformedURLException {
+        Set<String> classpathElements = new HashSet<>();
+        classpathElements.addAll(project.getRuntimeClasspathElements());
+        classpathElements.addAll(project.getCompileClasspathElements());
+        return collectClasspathUrls(classpathElements);
+    }
+
+    private Set<URL> collectClasspathUrls(Set<String> classpathElements) throws MalformedURLException {
+        Set<URL> urls = new HashSet<>();
+        for (String element : classpathElements) {
+            URL url = new File(element).toURI().toURL();
+            urls.add(url);
+        }
+        return urls;
     }
 
 }

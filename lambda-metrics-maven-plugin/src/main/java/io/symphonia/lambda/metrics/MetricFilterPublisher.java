@@ -1,7 +1,7 @@
 package io.symphonia.lambda.metrics;
 
-import java.util.List;
-
 public interface MetricFilterPublisher {
-    void publishMetricFilter(String logGroupName, String fullMetricName, String filterPatternFormat, List<String> metricValues);
+    boolean removeMetricFilter(String logGroupName, String fullMetricName, String metricValue);
+
+    boolean publishMetricFilter(String logGroupName, String fullMetricName, String filterPatternFormat, String metricValues);
 }

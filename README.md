@@ -2,14 +2,14 @@
 
 A collection of logging and metrics libraries for Java / JVM [AWS Lambdas](https://aws.amazon.com/lambda/).
 
-## [lambda-slf4j](lambda-slf4j/README.md)
+## [lambda-slf4j](lambda-slf4j/)
 
 Modern logging for Lambdas, using SLF4J + Logback.
 
-## [lambda-metrics](lambda-metrics/README.md)
+## [lambda-metrics](lambda-metrics/)
 
 Loggable Codahale metrics for Lambdas.
 
-## [lambda-metrics-maven-plugin](lambda-metrics-maven-plugin/README.md)
+## [lambda-metrics-maven-plugin](lambda-metrics-maven-plugin/)
 
 Annotation-driven, automated Cloudwatch Metric Filters management.

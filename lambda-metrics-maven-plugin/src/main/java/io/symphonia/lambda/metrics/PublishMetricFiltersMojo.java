@@ -23,15 +23,15 @@ import java.util.Map;
 @Mojo(name = "publish")
 public class PublishMetricFiltersMojo extends AbstractMojo {
 
-    public static Map<String, String> DEFAULT_FILTER_PATTERN_MAP = new HashMap<String, String>() {{
+    public static Map<String, String> COMPLETE_FILTER_PATTERN_MAP = new HashMap<String, String>() {{
         put("COUNTER", "[datetime,level=METRIC,logger,type_label,type=COUNTER,name_label,name=\"%s\",count_label,count]");
         put("GAUGE", "[datetime,level=METRIC,logger,type_label,type=GAUGE,name_label,name=\"%s\",value_label,value]");
-        put("METER", "[datetime,level=METRIC,logger,type_label,type=METER,name_label,name=\"%s\",count_label,count,mean_rate_label,mean_rate,m1_label,m1,m5_label,m5,m15_label,m15,...]");
+        put("METER", "[datetime,level=METRIC,logger,type_label,type=METER,name_label,name=\"%s\",count_label,count,mean_rate_label,mean_rate,...]");
         put("HISTOGRAM", "[datetime,level=METRIC,logger,type_label,type=HISTOGRAM,name_label,name=\"%s\",count_label,count,min_label,min,max_label,max,mean_label,mean,stddev_label,stddev,median_label,median,p75_label,p75,p95_label,p95,p98_label,p98,p99_label,p99,p999_label,p999]");
-        put("TIMER", "[datetime,level=METRIC,logger,type_label,type=TIMER,name_label,name=\"%s\",count_label,count,min_label,min,max_label,max,mean_label,mean,stddev_label,stddev,median_label,median,p75_label,p75,p95_label,p95,p98_label,p98,p99_label,p99,p999_label,p999,mean_rate_label,mean_rate,m1_label,m1,m5_label,m5,m15_label,m15,...]");
+        put("TIMER", "[datetime,level=METRIC,logger,type_label,type=TIMER,name_label,name=\"%s\",count_label,count,min_label,min,max_label,max,mean_label,mean,stddev_label,stddev,median_label,median,p75_label,p75,p95_label,p95,p98_label,p98,p99_label,p99,p999_label,p999,mean_rate_label,mean_rate,...]");
     }};
 
-    public static Map<String, List<String>> DEFAULT_METRIC_VALUE_MAP = new HashMap<String, List<String>>() {{
+    public static Map<String, List<String>> COMPLETE_METRIC_VALUE_MAP = new HashMap<String, List<String>>() {{
         put("COUNTER", Collections.singletonList("count"));
         put("GAUGE", Collections.singletonList("value"));
         put("METER", Arrays.asList("count", "mean_rate", "m1", "m5", "m15"));
@@ -39,6 +39,14 @@ public class PublishMetricFiltersMojo extends AbstractMojo {
                 "p75", "p95", "p98", "p99", "p999"));
         put("TIMER", Arrays.asList("count", "min", "max", "mean", "stddev", "median",
                 "p75", "p95", "p98", "p99", "p999", "mean_rate", "m1", "m5", "m15"));
+    }};
+
+    public static Map<String, List<String>> REDUCED_METRIC_VALUE_MAP = new HashMap<String, List<String>>() {{
+        put("COUNTER", Collections.singletonList("count"));
+        put("GAUGE", Collections.singletonList("value"));
+        put("METER", Collections.singletonList("mean_rate"));
+        put("HISTOGRAM", Arrays.asList("min", "max", "mean", "p75", "p99", "p999"));
+        put("TIMER", Arrays.asList("min", "max", "mean", "p75", "p99", "p999", "mean_rate"));
     }};
 
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
@@ -51,10 +59,10 @@ public class PublishMetricFiltersMojo extends AbstractMojo {
     private String cloudwatchLogGroupName;
 
     @Parameter(required = false)
-    private Map<String, String> filterPatternMap = DEFAULT_FILTER_PATTERN_MAP;
+    private Map<String, String> filterPatternMap = COMPLETE_FILTER_PATTERN_MAP;
 
     @Parameter(required = false)
-    private Map<String, List<String>> metricValueMap = DEFAULT_METRIC_VALUE_MAP;
+    private Map<String, List<String>> metricValueMap = COMPLETE_METRIC_VALUE_MAP;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {

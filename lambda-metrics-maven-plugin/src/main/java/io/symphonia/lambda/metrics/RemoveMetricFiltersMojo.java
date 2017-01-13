@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.symphonia.lambda.metrics.PublishMetricFiltersMojo.DEFAULT_METRIC_VALUE_MAP;
+import static io.symphonia.lambda.metrics.PublishMetricFiltersMojo.COMPLETE_METRIC_VALUE_MAP;
 
 @Execute(phase = LifecyclePhase.COMPILE)
 @Mojo(name = "remove")
@@ -33,7 +33,7 @@ public class RemoveMetricFiltersMojo extends AbstractMojo {
     private String cloudwatchLogGroupName;
 
     @Parameter(required = false)
-    private Map<String, List<String>> metricValueMap = DEFAULT_METRIC_VALUE_MAP;
+    private Map<String, List<String>> metricValueMap = COMPLETE_METRIC_VALUE_MAP;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {

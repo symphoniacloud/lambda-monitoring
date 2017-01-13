@@ -1,89 +1,83 @@
-# io.symphonia/lambda-slf4j
+# lambda-slf4j
 
 Better logging for Java / JVM [AWS Lambdas](https://aws.amazon.com/lambda/).
 
-`lambda-slf4j` brings the benefits and flexibility of SLF4J to AWS Lambdas, while retaining the ability to seamlessly include the Lambda's AWS Request ID in log output using the `%{AWSRequestId}` conversion pattern. It allows Lambda projects to use SLF4J to replace the myriad of logging frameworks used by other Java libraries and consolidate logging configuration into a single file.
+`lambda-slf4j` brings the flexibility of SLF4J and performance of Logback to AWS Lambdas, while retaining the ability
+to use the `%X{AWSRequestId}` pattern in log output.
+
+Thanks to SLF4J, it allows Lambda projects to easily replace the myriad of other logging frameworks used throughout
+the Java ecosystem.
+
+Last but not least, it provides a sensible default logging configuration for Logback, whilst still allowing for custom
+configuration.
 
 ## Quick Start
 
-1. **Add the `io.symphonia/lambda-slf4j` dependency to your project**
+1. **Add the `io.symphonia/lambda-slf4j` dependency to your project, using the `with-config` classifier**
 
    For Maven projects:
    ```xml
    <dependency>
      <groupId>io.symphonia</groupId>
      <artifactId>lambda-slf4j</artifactId>
-     <version>1.0.0</version>
+     <version>2.0.0</version>
+     <classifier>with-config</classifier>
    </dependency>
    ```
    
-   For Leiningen projects (e.g. for Clojure Lambdas):
-   ```clojure
-   [io.symphonia/lambda-slf4j "1.0.0"]
-   ```
-
-1. **Add the appropriate [SLF4J bridge libraries](http://www.slf4j.org/legacy.html) to your project, if necessary.**
-
-   Some AWS libraries (like the AWS Java SDK)
-   [use `commons-logging`](https://github.com/aws/aws-sdk-java/blob/master/aws-java-sdk-core/pom.xml#L16-L20). If you have
-   such libraries in your project, you'll need to add a dependency on SLF4J's `jcl-over-slf4j` bridge.
+   `with-config` just means that this flavor of the library includes a default Logback configuration.
    
-   Note that the `log4j-over-slf4j` bridge is already included as a dependency of `lambda-slf4j` (this library),
-   so if you depend on libraries that require log4j no extra work is required for them.
-   
-   Maven:
-   ```xml
-   <dependency>
-     <groupId>org.slf4j</groupId>
-     <artifactId>jcl-over-slf4j</artifactId>
-     <version>1.7.22</version>
-   </dependency>
-   ```
-   
-   Leiningen:
-   ```clojure
-   [org.slf4j/jcl-over-slf4j "1.7.22"]
-   ```
+1. ***Start logging!***
 
-1. **Copy this Logback configuration file into `logback.xml` to your project's main resource directory (`src/main/resources`).** 
+    ```java
+    package io.symphonia;
+    
+    import org.slf4j.Logger;
+    import org.slf4j.LoggerFactory;
+    
+    public class Lambda {
+        private static Logger LOG = LoggerFactory.getLogger(Lambda.class);
+    
+        public void handler(String input) {
+            LOG.info(input);
+        }
+    }
+    ```
+    
+Given an input string of "foo", the output in Cloudwatch Logs looks like:
 
-   ```xml
-   <configuration scan="false">
-       <appender name="STDOUT" class="io.symphonia.lambda.ConsoleAppender">
-           <encoder>
-               <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %X{AWSRequestId:-NO-REQUEST-ID} %.-1level %logger{5} - %msg%n</pattern>
-           </encoder>
-       </appender>
-       <root level="debug">
-           <appender-ref ref="STDOUT"/>
-       </root>
-   </configuration>
-   ```
+```
+[2017-01-13 21:14:28.401] INFO i.s.Lambda - foo
+```
 
-## Why replace the default logging library?
+## FAQ
 
-The default AWS JVM Lambda logging library is `aws-lambda-java-log4j` . This does a couple of handy things:
+#### How can I change what the output looks like?
 
-1. Invokes the `LambdaRuntimeInternal.setUseLog4jAppender` method with the boolean parameter `true`, which causes the 
-[internal EventHandlerLoader](https://github.com/aldrinleal/lambda-java-runtime/blob/99706a1db64f95f8f86d3db96ca8a39297d1b669/lambdainternal/EventHandlerLoader.java#L486-L499) 
-to load a nice [MDC](https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/MDC.html) that allows access to the 
-AWS Request Id in logging patterns.
-1. Prints `Throwable` stack traces as a single string with embedded newlines, in cases where the configured Log4J 
-layout doesn't print Throwables.
+1. Omit the `with-config` classifier from the above dependency specification. The no-classifier flavor of the library
+doesn't include any Logback configuration.
 
-Unfortunately, for an otherwise very modern Serverless platform, it also brings an almost [five year old version](https://mvnrepository.com/artifact/log4j/log4j/1.2.17) of an 
-[unmaintained logging package](https://blogs.apache.org/foundation/entry/apache_logging_services_project_announces) 
-into your Lambda project as a transitive dependency.
+2. Configure Logback using one of the methods listed here: http://logback.qos.ch/manual/configuration.html. Many folks
+choose to put a `logback.xml` file in the project's `src/main/resources` directory.
 
-## Why use SLF4J?
+   For reference, the XML version of the default `lambda-slf4j` configuration looks like this:
 
-[SLF4J](http://www.slf4j.org/) is an attractive alternative to Log4J 1.x, due to its:
+    ```xml
+    <configuration>
 
-1. Compatibility with Log4J features like MDCs.
-1. Ability to replace and consolidate all other Java logging frameworks.
-1. Superior runtime performance.
-1. Smaller dependency footprint.
+        <appender name="STDOUT" class="io.symphonia.lambda.logging.DefaultConsoleAppender">
+            <encoder>
+                <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %X{AWSRequestId:-NO-REQUEST-ID} %.-6level %logger{5} - %msg%n</pattern>
+            </encoder>
+        </appender>
 
+        <root level="info">
+            <appender-ref ref="STDOUT" />
+        </root>
+        
+    </configuration>
+    ```
+ 
 ## TODO
 
 If [LambdaRuntime.logger](https://github.com/aws/aws-lambda-java-libs/blob/master/aws-lambda-java-core/src/main/java/com/amazonaws/services/lambda/runtime/LambdaRuntime.java#L8-L12) 

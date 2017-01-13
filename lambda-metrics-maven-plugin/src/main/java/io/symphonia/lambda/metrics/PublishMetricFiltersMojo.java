@@ -28,17 +28,17 @@ public class PublishMetricFiltersMojo extends AbstractMojo {
         put("GAUGE", "[datetime,level=METRIC,logger,type_label,type=GAUGE,name_label,name=\"%s\",value_label,value]");
         put("METER", "[datetime,level=METRIC,logger,type_label,type=METER,name_label,name=\"%s\",count_label,count,mean_rate_label,mean_rate,m1_label,m1,m5_label,m5,m15_label,m15,rate_unit_label,rate_unit]");
         put("HISTOGRAM", "[datetime,level=METRIC,logger,type_label,type=HISTOGRAM,name_label,name=\"%s\",count_label,count,min_label,min,max_label,max,mean_label,mean,stddev_label,stddev,median_label,median,p75_label,p75,p95_label,p95,p98_label,p98,p99_label,p99,p999_label,p999]");
-        put("TIMER", "[datetime,level=METRIC,logger,type_label,type=TIMER,name_label,name=\"%s\",count_label,count,min_label,min,max_label,max,mean_label,mean,stddev_label,stddev,median_label,median,p75_label,p75,p95_label,p95,p98_label,p98,p99_label,p99,p999_label,p999,mean_rate_label,mean_rate,m1_label,m1,m5_label,m5,m15_label,m15,rate_unit_label,unit,duration_unit_label,unit]");
+        put("TIMER", "[datetime,level=METRIC,logger,type_label,type=TIMER,name_label,name=\"%s\",count_label,count,min_label,min,max_label,max,mean_label,mean,stddev_label,stddev,median_label,median,p75_label,p75,p95_label,p95,p98_label,p98,p99_label,p99,p999_label,p999,mean_rate_label,mean_rate,m1_label,m1,m5_label,m5,m15_label,m15,...]");
     }};
 
     public static Map<String, List<String>> DEFAULT_METRIC_VALUE_MAP = new HashMap<String, List<String>>() {{
         put("COUNTER", Collections.singletonList("count"));
         put("GAUGE", Collections.singletonList("value"));
-        put("METER", Arrays.asList("mean_rate", "m1", "m5", "m15"));
-        put("HISTOGRAM", Arrays.asList("min", "max", "mean", "stddev", "median",
+        put("METER", Arrays.asList("count", "mean_rate", "m1", "m5", "m15"));
+        put("HISTOGRAM", Arrays.asList("count", "min", "max", "mean", "stddev", "median",
                 "p75", "p95", "p98", "p99", "p999"));
-        put("TIMER", Arrays.asList("min", "max", "mean", "stddev", "median",
-                "p75", "p95", "p98", "p99", "p999", "rate", "m1", "m5", "m15"));
+        put("TIMER", Arrays.asList("count", "min", "max", "mean", "stddev", "median",
+                "p75", "p95", "p98", "p99", "p999", "mean_rate", "m1", "m5", "m15"));
     }};
 
     @Parameter(defaultValue = "${project}", readonly = true, required = true)

@@ -2,10 +2,11 @@ package io.symphonia.lambda.logging;
 
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.filter.Filter;
 import com.amazonaws.services.lambda.runtime.LambdaRuntimeInternal;
 
-public class LambdaConsoleAppender extends ch.qos.logback.core.ConsoleAppender<ILoggingEvent> {
+public class LambdaConsoleAppender extends ConsoleAppender<ILoggingEvent> {
 
     public LambdaConsoleAppender() {
         super();

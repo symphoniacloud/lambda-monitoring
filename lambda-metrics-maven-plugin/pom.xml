@@ -14,7 +14,7 @@
 
     <name>lambda-metrics-maven-plugin</name>
     <description>Maven plugin to produce Cloudwatch Metric Filters</description>
-    <url>https://github.com/symphoniacloud/lambda-monitoring/lambda-metrics-maven-plugin</url>
+    <url>https://github.com/symphoniacloud/lambda-monitoring/tree/master/lambda-metrics-maven-plugin</url>
 
     <dependencies>
         <dependency>
@@ -49,11 +49,6 @@
             <version>3.5</version>
             <scope>provided</scope>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.codehaus.plexus</groupId>-->
-            <!--<artifactId>plexus-utils</artifactId>-->
-            <!--<version>3.0.24</version>-->
-        <!--</dependency>-->
 
         <dependency>
             <groupId>junit</groupId>

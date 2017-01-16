@@ -12,7 +12,7 @@
     <artifactId>lambda-logging</artifactId>
     <name>lambda-logging</name>
     <description>Modern AWS Lambda logging</description>
-    <url>https://github.com/symphoniacloud/lambda-monitoring/lambda-logging</url>
+    <url>https://github.com/symphoniacloud/lambda-monitoring/tree/master/lambda-logging</url>
 
     <dependencies>
         <dependency>

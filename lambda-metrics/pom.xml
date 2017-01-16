@@ -12,7 +12,7 @@
     <artifactId>lambda-metrics</artifactId>
     <name>lambda-metrics</name>
     <description>Codahale Metrics logging for Lambda</description>
-    <url>https://github.com/symphoniacloud/lambda-monitoring/lambda-metrics</url>
+    <url>https://github.com/symphoniacloud/lambda-monitoring/tree/master/lambda-metrics</url>
 
     <dependencies>
         <dependency>

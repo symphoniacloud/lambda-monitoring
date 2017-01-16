@@ -8,7 +8,7 @@ import org.slf4j.MarkerFactory;
 
 public class MetricPassFilter extends Filter<ILoggingEvent> {
 
-    static Marker METRIC_MARKER = MarkerFactory.getMarker("METRIC");
+    public static Marker METRIC_MARKER = MarkerFactory.getMarker("METRIC");
 
     // Accept only logging events that include METRIC marker, deny all others
 

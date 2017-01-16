@@ -2,7 +2,7 @@
 
 A collection of logging and metrics libraries for Java / JVM [AWS Lambdas](https://aws.amazon.com/lambda/).
 
-## [lambda-slf4j](lambda-slf4j/)
+## [lambda-logging](lambda-logging/)
 
 Modern logging for Lambdas, using SLF4J + Logback.
 

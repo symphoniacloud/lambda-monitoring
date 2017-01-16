@@ -1,8 +1,8 @@
-# lambda-slf4j
+# lambda-logging
 
 Better logging for Java / JVM [AWS Lambdas](https://aws.amazon.com/lambda/).
 
-`lambda-slf4j` brings the flexibility of SLF4J and performance of Logback to AWS Lambdas, while retaining the ability
+`lambda-logging` brings the flexibility of SLF4J and performance of Logback to AWS Lambdas, while retaining the ability
 to use the `%X{AWSRequestId}` pattern in log output.
 
 Thanks to SLF4J, it allows Lambda projects to easily replace the myriad of other logging frameworks used throughout
@@ -13,19 +13,18 @@ configuration.
 
 ## Quick Start
 
-1. **Add the `io.symphonia/lambda-slf4j` dependency to your project, using the `with-config` classifier**
+1. **Add the `io.symphonia/lambda-logging` dependency to your project**
 
    For Maven projects:
    ```xml
    <dependency>
      <groupId>io.symphonia</groupId>
-     <artifactId>lambda-slf4j</artifactId>
-     <version>2.0.0</version>
-     <classifier>with-config</classifier>
+     <artifactId>lambda-logging</artifactId>
+     <version>1.0.0</version>
    </dependency>
    ```
    
-   `with-config` just means that this flavor of the library includes a default Logback configuration.
+   The vanilla, no-classifier version of the library includes a default Logback configuration.
    
 1. ***Start logging!***
 
@@ -47,20 +46,29 @@ configuration.
 Given an input string of "foo", the output in Cloudwatch Logs looks like:
 
 ```
-[2017-01-13 21:14:28.401] INFO i.s.Lambda - foo
+[2017-01-13 21:14:28.401] db0ac08a-dc2e-11e6-bb7c-0117e0d798b2 INFO i.s.Lambda - foo
 ```
 
 ## FAQ
 
 #### How can I change what the output looks like?
 
-1. Omit the `with-config` classifier from the above dependency specification. The no-classifier flavor of the library
-doesn't include any Logback configuration.
+1. (optional) Use the `no-config` classifier in the above dependency specification. This will omit the default Logback
+configuration:
+
+   ```xml
+   <dependency>
+     <groupId>io.symphonia</groupId>
+     <artifactId>lambda-logging</artifactId>
+     <version>1.0.0</version>
+     <classifier>no-config</classifier>
+   </dependency>
+   ```
 
 2. Configure Logback using one of the methods listed here: http://logback.qos.ch/manual/configuration.html. Many folks
 choose to put a `logback.xml` file in the project's `src/main/resources` directory.
 
-   For reference, the XML version of the default `lambda-slf4j` configuration looks like this:
+   For reference, the XML version of the default `lambda-logging` configuration looks like this:
 
     ```xml
     <configuration>

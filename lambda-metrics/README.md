@@ -81,7 +81,7 @@ within the limited scope and runtime of a Lambda invocation.
 #### 1. Are there any internal JVM metrics available?
 
 Yes. `LambdaMetricSet` makes the JVM uptime, vendor string, and name available as public instance fields. For example,
-to log a JVM uptime metric, use the following in your child Metrics class:
+to log a JVM uptime metric, use the following declaration in your child Metrics class:
 
    ```java
    @CloudwatchMetric

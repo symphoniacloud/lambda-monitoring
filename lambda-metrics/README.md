@@ -73,10 +73,10 @@ within the limited scope and runtime of a Lambda invocation.
 Yes. `LambdaMetricSet` makes the JVM uptime, vendor string, and name available as public instance fields. For example,
 to log a JVM uptime metric, use the following in your child Metrics class:
 
-    ```java
-    @CloudwatchMetric
-    Gauge jvmUptime = JVM_UPTIME;
-    ```
+   ```java
+   @CloudwatchMetric
+   Gauge jvmUptime = JVM_UPTIME;
+   ```
     
 You can also use Codahale's [`metrics-jvm` library](http://metrics.dropwizard.io/3.1.0/manual/jvm/), which exposes a 
 wide range of internal JVM metrics.

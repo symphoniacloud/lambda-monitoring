@@ -93,4 +93,4 @@ wide range of internal JVM metrics.
     
 ## TODO
 
-
+Document the various Codahale / Cloudwatch translation quirks. [This is a good summary of some of the issues.](https://github.com/blacklocus/metrics-cloudwatch#metric-types)

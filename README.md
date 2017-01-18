@@ -12,4 +12,4 @@ Loggable Codahale metrics for Lambdas.
 
 ## [lambda-metrics-maven-plugin](lambda-metrics-maven-plugin/)
 
-Annotation-driven, automated Cloudwatch Metric Filters management.
+Annotation-driven, automated Cloudwatch Metric Filters publishing.

@@ -1,6 +1,6 @@
 # lambda-metrics
 
-
+Loggable Codahale metrics for Lambdas.
 
 ## Quick Start
 
@@ -21,7 +21,7 @@
 1. **Start collecting metrics**
 
     ```java
-    package io.symphonia.lambda;
+    package io.symphonia;
     
     import com.codahale.metrics.Counter;
     import io.symphonia.lambda.annotations.CloudwatchMetric;
@@ -29,10 +29,11 @@
     import org.slf4j.Logger;
     import org.slf4j.LoggerFactory;
     
-    public class TestLambda {
+    public class Lambda {
     
         Logger LOG = LoggerFactory.getLogger(TestLambda.class);
     
+        @CloudwatchLogGroup("/aws/lambda/myLambda")
         private class Metrics extends LambdaMetricSet {
          
             @CloudwatchMetric
@@ -54,6 +55,15 @@
         }
     }
     ```
+    
+    Metrics will be logged out to Cloudwatch Logs (alongside other Lambda logging) in this form:
+    
+    ```
+    [2017-01-18 08:23:47.891] 6f1d6756-dd57-11e6-9f13-d569b1afad8d METRIC i.s.Lambda$Metrics type COUNTER name io.symphonia.Lambda/fooCounter count 3
+    ```
+    
+    This specific format is important, as it allows Cloudwatch Logs Metric Filters to parse and publish metrics from
+    our log statements.
     
 1. **Publish Metric Filters**
 

@@ -67,9 +67,9 @@ Loggable Codahale metrics for Lambdas.
     
 1. **Publish Metric Filters**
 
-Use the [`lambda-metrics-maven-plugin`](/lambda-metrics-maven-plugin) to publish Cloudwatch Logs Metric Filters, which 
-will extract your annotated metrics out of Cloudwatch Logs and push them to Cloudwatch Metrics. See that project for 
-more details.
+    Use the [`lambda-metrics-maven-plugin`](/lambda-metrics-maven-plugin) to publish Cloudwatch Logs Metric Filters, which 
+    will extract your annotated metrics out of Cloudwatch Logs and push them to Cloudwatch Metrics. See that project for 
+    more details.
     
 ## FAQ
 

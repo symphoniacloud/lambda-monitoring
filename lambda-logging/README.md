@@ -8,7 +8,7 @@ to use the `%X{AWSRequestId}` pattern in log output.
 Thanks to SLF4J, it allows Lambda projects to easily replace the myriad of other logging frameworks used throughout
 the Java ecosystem.
 
-`lambda-logging` also provides a sensible default logging configuration for Logback, whilst still allowing for custom
+`lambda-logging` provides a sensible default logging configuration for Logback, whilst still allowing for custom
 configuration. It's also compatible with popular logging libraries for other JVM langauges, like `tools.logging` for Clojure and `log4s` for Scala.
 
 ## Quick Start

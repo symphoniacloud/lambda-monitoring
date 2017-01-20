@@ -30,7 +30,7 @@ import static io.symphonia.lambda.metrics.PublishMetricFiltersMojo.COMPLETE_FILT
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class MetricFilterTest {
+public class CloudwatchMetricFilterTest {
 
     @CloudwatchNamespace("test.namespace")
     private class TestMetricSet extends LambdaMetricSet {

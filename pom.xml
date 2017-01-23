@@ -15,6 +15,7 @@
         <module>lambda-logging</module>
         <module>lambda-metrics</module>
         <module>lambda-metrics-maven-plugin</module>
+        <module>lambda-monitoring-sample-project</module>
     </modules>
 
     <licenses>

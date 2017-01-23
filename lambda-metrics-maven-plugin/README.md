@@ -41,3 +41,13 @@ Annotation-driven, automated Cloudwatch Metric Filters publishing. Used alongsid
    
    If the `dryRun=true` parameter was omitted, that last line would indicate how many Metric Filters 
    were actually published to AWS.
+   
+## FAQ
+
+#### 1. Can `lambda-metrics-maven-plugin` remove Cloudwatch Metric Filters?
+
+Yes. The `remove` goal will remove any Cloudwatch Metric Filters that are associated with your annotated metrics.
+
+## TODO
+
+Add a `generate` goal, to produce Cloudformation files for publishing / removing Cloudwatch Metric Filters, without actually performing those operations. This would allow users to generate and version control the infrastructure changes that accompany their Lambda function code changes.

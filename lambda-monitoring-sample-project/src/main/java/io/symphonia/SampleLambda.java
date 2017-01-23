@@ -11,11 +11,14 @@ public class SampleLambda {
 
     private static Logger LOG = LoggerFactory.getLogger(SampleLambda.class);
 
-    @CloudwatchLogGroup("/aws/lambda/myLambda")
+    @CloudwatchLogGroup("/aws/lambda/sample-lambda") // Must match AWS Lambda config
     private class Metrics extends LambdaMetricSet {
 
-        @CloudwatchMetric
+        @CloudwatchMetric // Metric name defaults to field name ("fooCounter")
         Counter fooCounter = new Counter();
+
+        @CloudwatchMetric("myBarCounter") // Metric name overridden
+        Counter barCounter = new Counter();
     }
 
     public void handler(String input) {
@@ -25,6 +28,8 @@ public class SampleLambda {
             for (String part : input.split(" ")) {
                 if ("foo".equalsIgnoreCase(part)) {
                     metrics.fooCounter.inc();
+                } else if ("bar".equalsIgnoreCase(part)) {
+                    metrics.barCounter.inc();
                 }
             }
         }

@@ -1,6 +1,6 @@
 # lambda-metrics
 
-Loggable Codahale metrics for Lambdas.
+Loggable Codahale metrics for Lambdas. Can be used with [`lambda-metrics-maven-plugin`](https://github.com/symphoniacloud/lambda-monitoring/tree/master/lambda-metrics-maven-plugin) to publish metrics to Cloudwatch.
 
 ## Quick Start
 

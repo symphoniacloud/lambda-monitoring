@@ -25,22 +25,25 @@ Annotation-driven, automated Cloudwatch Metric Filters publishing. Used alongsid
    The default plugin execution isn't tied to a lifecycle phase, you must manually invoke it:
    
    ```shell
-   $ mvn lambda-metrics:publish -DdryRun=true
+   $ mvn lambda-metrics:publish
    ```
    
-   Note that in this example, we've given the `dryRun=true` parameter, which will simulate the actions
-   that will be taken, but won't actually publish any Metric Filters to your AWS account.   
-   
-   The output from that command looks like this:
+   The output from that command (run against the sample project) looks like this:
    
    ```shell
-   [INFO] Found [1] metric fields in classpath.
-   [INFO] [dry run] Publishing metric filter [fooCounter-count] to log group [/aws/lambda/myLambda]
-   [INFO] Published [0] metric filters.
+   [INFO] Found [2] metric fields in classpath.
+   [INFO] Publishing metric filter [myBarCounter-count] to log group [/aws/lambda/sample-lambda]
+   [INFO] Publishing metric filter [fooCounter-count] to log group [/aws/lambda/sample-lambda]
+   [INFO] Published [2] metric filters.
    ```
    
-   If the `dryRun=true` parameter was omitted, that last line would indicate how many Metric Filters 
-   were actually published to AWS.
+   You can see the Metric Filters in the Cloudwatch console:
+   
+   ![Cloudwatch Metric Filters](cloudwatch-metric-filters.png)
+   
+   And, you can graph the Cloudwatch Metrics themselves:
+   
+   ![Cloudwatch Graph](cloudwatch-graph.png)
    
 ## FAQ
 

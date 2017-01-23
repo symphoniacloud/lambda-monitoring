@@ -1,8 +1,10 @@
 # lambda-metrics-maven-plugin
 
-Annotation-driven, automated Cloudwatch Metric Filters publishing.
+Annotation-driven, automated Cloudwatch Metric Filters publishing. Used alongside [`lambda-metrics`](https://github.com/symphoniacloud/lambda-monitoring/tree/master/lambda-metrics).
 
 ## Quick Start
+
+1. **Using the [`lambda-metrics` library and documentation](https://github.com/symphoniacloud/lambda-monitoring/tree/master/lambda-metrics), add some annotated Codahale metrics to your source code.** 
 
 1. **Add the `io.symphonia/lambda-metrics-maven-plugin` plugin to your Maven project**
 
@@ -18,7 +20,7 @@ Annotation-driven, automated Cloudwatch Metric Filters publishing.
    </build>
    ```
    
-2. **Execute the `publish` goal to publish Metric Filters**
+1. **Execute the `publish` goal to publish Metric Filters**
    
    The default plugin execution isn't tied to a lifecycle phase, you must manually invoke it:
    

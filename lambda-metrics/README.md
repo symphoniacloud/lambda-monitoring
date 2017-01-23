@@ -62,11 +62,14 @@ Loggable Codahale metrics for Lambdas. Can be used with [`lambda-metrics-maven-p
     }
     ```
     
-    Metrics will be logged out to Cloudwatch Logs (alongside other Lambda logging) in this form:
+    Given the input "foo bar baz foo", metrics will be logged out to Cloudwatch Logs (alongside other Lambda logging) 
+    in this form:
     
     ```
-    [2017-01-18 08:23:47.891] 6f1d6756-dd57-11e6-9f13-d569b1afad8d METRIC i.s.Lambda$Metrics type COUNTER name io.symphonia.SampleLambda/fooCounter count 3
-    [2017-01-18 08:23:47.902] 6f1d6756-dd57-11e6-9f13-d569b1afad8d METRIC i.s.Lambda$Metrics type COUNTER name io.symphonia.SampleLambda/myBarCounter count 3
+    START RequestId: 32411919-e1a1-11e6-87ff-775b6b1f5ae0 Version: $LATEST
+    [2017-01-23 19:21:53.574] 32411919-e1a1-11e6-87ff-775b6b1f5ae0 METRIC i.s.SampleLambda type COUNTER name io.symphonia.SampleLambda.Metrics/fooCounter count 2
+    [2017-01-23 19:21:53.576] 32411919-e1a1-11e6-87ff-775b6b1f5ae0 METRIC i.s.SampleLambda type COUNTER name io.symphonia.SampleLambda.Metrics/myBarCounter count 1
+    END RequestId: 32411919-e1a1-11e6-87ff-775b6b1f5ae0
     ```
     
     This specific format is important, as it allows Cloudwatch Logs Metric Filters to parse and publish metrics from

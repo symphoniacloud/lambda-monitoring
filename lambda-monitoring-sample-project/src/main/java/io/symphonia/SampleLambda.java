@@ -35,5 +35,11 @@ public class SampleLambda {
         }
 
         metrics.report(LOG);
+
+        try {
+            throw(new Exception("foo"));
+        } catch (Exception e) {
+            LOG.error("Oh noes", e);
+        }
     }
 }

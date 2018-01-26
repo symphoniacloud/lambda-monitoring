@@ -75,7 +75,7 @@ choose to put a `logback.xml` file in the project's `src/main/resources` directo
 
         <appender name="STDOUT" class="io.symphonia.lambda.logging.DefaultConsoleAppender">
             <encoder>
-                <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %X{AWSRequestId:-NO-REQUEST-ID} %.-6level %logger{5} - %msg%n</pattern>
+                <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %X{AWSRequestId:-" + NO_REQUEST_ID + "} %.-6level %logger{5} - %msg \r%replace(%ex){'\n','\r'}%nopex</pattern>
             </encoder>
         </appender>
 

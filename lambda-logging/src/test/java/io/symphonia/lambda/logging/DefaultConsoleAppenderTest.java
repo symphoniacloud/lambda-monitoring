@@ -42,7 +42,7 @@ public class DefaultConsoleAppenderTest {
             Logger logger = LoggerFactory.getLogger("TEST-LOGGER");
 
             logger.info("TEST-MESSAGE");
-            assertThat(outputStream.toString(), matchesPattern("^\\[[0-9\\-:\\. ]{23}\\] AWS-REQUEST-ID INFO TEST-LOGGER - TEST-MESSAGE\\n$"));
+            assertThat(outputStream.toString(), matchesPattern("^\\[[0-9\\-:\\. ]{23}\\] AWS-REQUEST-ID INFO TEST-LOGGER - TEST-MESSAGE \\r$"));
         } finally {
             System.setOut(original);
         }
@@ -58,7 +58,7 @@ public class DefaultConsoleAppenderTest {
             Logger logger = LoggerFactory.getLogger("TEST-LOGGER");
             logger.info("TEST-MESSAGE");
 
-            assertThat(outputStream.toString(), matchesPattern("^\\[[0-9\\-:\\. ]{23}\\] NO-REQUEST-ID INFO TEST-LOGGER - TEST-MESSAGE\\n$"));
+            assertThat(outputStream.toString(), matchesPattern("^\\[[0-9\\-:\\. ]{23}\\] NO-REQUEST-ID INFO TEST-LOGGER - TEST-MESSAGE \\r$"));
         } finally {
             System.setOut(original);
         }
@@ -74,7 +74,7 @@ public class DefaultConsoleAppenderTest {
             Logger logger = LoggerFactory.getLogger("TEST-LOGGER");
             logger.info("TEST-MESSAGE", new Exception("EXCEPTION"));
 
-            assertThat(outputStream.toString(), matchesPattern("(?s)^\\[[0-9\\-:\\. ]{23}\\] NO-REQUEST-ID INFO TEST-LOGGER - TEST-MESSAGE\\njava\\.lang\\.Exception: EXCEPTION\\n\\tat.*$"));
+            assertThat(outputStream.toString(), matchesPattern("(?s)^\\[[0-9\\-:\\. ]{23}\\] NO-REQUEST-ID INFO TEST-LOGGER - TEST-MESSAGE \\rjava\\.lang\\.Exception: EXCEPTION\\r\\tat.*$"));
         } finally {
             System.setOut(original);
         }

@@ -4,7 +4,7 @@
 
     <groupId>io.symphonia</groupId>
     <artifactId>lambda-monitoring-parent</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>lambda-monitoring</name>
@@ -79,7 +79,7 @@
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.1.8</version>
+                <version>1.2.3</version>
             </dependency>
             <dependency>
                 <groupId>io.dropwizard.metrics</groupId>

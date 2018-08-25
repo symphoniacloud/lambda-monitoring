@@ -46,7 +46,7 @@ public class MetricsConsoleAppenderTest {
 
             assertThat(outputStream.toString(),
                     matchesPattern("^\\[[0-9\\-:\\. ]{23}\\] AWS-REQUEST-ID METRIC TEST-LOGGER type COUNTER name " +
-                            TestMetricSet.class.getCanonicalName() + "/testCounter count 0\\n$"));
+                            TestMetricSet.class.getCanonicalName() + "/testCounter count 0\\r$"));
         } finally {
             System.setOut(original);
         }

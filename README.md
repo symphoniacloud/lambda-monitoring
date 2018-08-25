@@ -8,12 +8,18 @@ Background reading:
 
 ## [lambda-logging](lambda-logging/)
 
+[![Maven Central](https://img.shields.io/maven-central/v/io.symphonia/lambda-logging.svg)](https://search.maven.org/artifact/io.symphonia/lambda-logging)
+
 Modern logging for Lambdas, using SLF4J + Logback.
 
 ## [lambda-metrics](lambda-metrics/)
+
+[![Maven Central](https://img.shields.io/maven-central/v/io.symphonia/lambda-metrics.svg)](https://search.maven.org/artifact/io.symphonia/lambda-metrics)
 
 Loggable Codahale metrics for Lambdas.
 
 ## [lambda-metrics-maven-plugin](lambda-metrics-maven-plugin/)
 
-Annotation-driven, automated Cloudwatch Metric Filters.
+[![Maven Central](https://img.shields.io/maven-central/v/io.symphonia/lambda-metrics-maven-plugin.svg)](https://search.maven.org/artifact/io.symphonia/lambda-metrics-maven-plugin)
+
+Annotation-driven, automated Cloudwatch Metric Filters. 

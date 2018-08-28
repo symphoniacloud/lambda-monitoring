@@ -20,7 +20,7 @@ configuration. It's also compatible with popular logging libraries for other JVM
    <dependency>
      <groupId>io.symphonia</groupId>
      <artifactId>lambda-logging</artifactId>
-     <version>1.0.0</version>
+     <version>1.0.2</version>
    </dependency>
    ```
    
@@ -60,7 +60,7 @@ configuration:
    <dependency>
      <groupId>io.symphonia</groupId>
      <artifactId>lambda-logging</artifactId>
-     <version>1.0.0</version>
+     <version>1.0.2</version>
      <classifier>no-config</classifier>
    </dependency>
    ```

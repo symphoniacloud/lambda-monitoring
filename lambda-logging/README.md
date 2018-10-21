@@ -49,6 +49,26 @@ Given an input string of "foo", the output in Cloudwatch Logs looks like:
 [2017-01-13 21:14:28.401] db0ac08a-dc2e-11e6-bb7c-0117e0d798b2 INFO i.s.Lambda - foo
 ```
 
+Given an exception, the output in Cloudwatch Logs looks like:
+
+```
+[2018-10-21 17:50:18.564] c593e6ee-d559-11e8-bc1e-17c4f4ec986e ERROR i.s.MinimalLambda - exception
+java.lang.RuntimeException: boom
+at io.symphonia.MinimalLambda.handler(MinimalLambda.java:12)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.lang.reflect.Method.invoke(Method.java:498)
+at lambdainternal.EventHandlerLoader$PojoMethodRequestHandler.handleRequest(EventHandlerLoader.java:259)
+at lambdainternal.EventHandlerLoader$PojoHandlerAsStreamHandler.handleRequest(EventHandlerLoader.java:178)
+at lambdainternal.EventHandlerLoader$2.call(EventHandlerLoader.java:888)
+at lambdainternal.AWSLambda.startRuntime(AWSLambda.java:292)
+at lambdainternal.AWSLambda.<clinit>(AWSLambda.java:64)
+at java.lang.Class.forName0(Native Method)
+at java.lang.Class.forName(Class.java:348)
+at lambdainternal.LambdaRTEntry.main(LambdaRTEntry.java:94)
+```
+
 ## FAQ
 
 #### How can I change what the output looks like?
@@ -75,7 +95,7 @@ choose to put a `logback.xml` file in the project's `src/main/resources` directo
 
         <appender name="STDOUT" class="io.symphonia.lambda.logging.DefaultConsoleAppender">
             <encoder>
-                <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %X{AWSRequestId:-" + NO_REQUEST_ID + "} %.-6level %logger{5} - %msg \r%replace(%ex){'\n','\r'}%nopex</pattern>
+                <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %X{AWSRequestId:-" + NO_REQUEST_ID + "} %.-6level %logger{5} - %msg \r%replace(%ex){'\n','\r'}%nopex%n</pattern>
             </encoder>
         </appender>
 

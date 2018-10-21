@@ -42,7 +42,7 @@ public class DefaultConsoleAppenderTest {
             Logger logger = LoggerFactory.getLogger("TEST-LOGGER");
 
             logger.info("TEST-MESSAGE");
-            assertThat(outputStream.toString(), matchesPattern("^\\[[0-9\\-:\\. ]{23}\\] AWS-REQUEST-ID INFO TEST-LOGGER - TEST-MESSAGE \\r$"));
+            assertThat(outputStream.toString(), matchesPattern("^\\[[0-9\\-:\\. ]{23}\\] AWS-REQUEST-ID INFO TEST-LOGGER - TEST-MESSAGE \\r\\n$"));
         } finally {
             System.setOut(original);
         }
@@ -58,7 +58,7 @@ public class DefaultConsoleAppenderTest {
             Logger logger = LoggerFactory.getLogger("TEST-LOGGER");
             logger.info("TEST-MESSAGE");
 
-            assertThat(outputStream.toString(), matchesPattern("^\\[[0-9\\-:\\. ]{23}\\] NO-REQUEST-ID INFO TEST-LOGGER - TEST-MESSAGE \\r$"));
+            assertThat(outputStream.toString(), matchesPattern("^\\[[0-9\\-:\\. ]{23}\\] NO-REQUEST-ID INFO TEST-LOGGER - TEST-MESSAGE \\r\\n$"));
         } finally {
             System.setOut(original);
         }

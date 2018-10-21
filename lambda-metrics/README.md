@@ -11,7 +11,7 @@ Loggable Codahale metrics for Lambdas. Can be used with [`lambda-metrics-maven-p
    <dependency>
      <groupId>io.symphonia</groupId>
      <artifactId>lambda-metrics</artifactId>
-     <version>1.0.0</version>
+     <version>${lambda-metrics.version}</version>
    </dependency>
    ```
    

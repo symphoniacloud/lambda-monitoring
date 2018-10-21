@@ -14,7 +14,7 @@ Annotation-driven, automated Cloudwatch Metric Filters publishing. Used alongsid
          <plugin>
             <groupId>io.symphonia</groupId>
             <artifactId>lambda-metrics-maven-plugin</artifactId>
-            <version>1.0.0</version>>
+            <version>${lambda-metrics-maven-plugin.version}</version>
          </plugin>
       </plugins>
    </build>

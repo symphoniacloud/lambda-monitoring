@@ -9,7 +9,7 @@ import ch.qos.logback.core.spi.ContextAwareBase;
 public class DefaultLogbackConfigurator extends ContextAwareBase implements Configurator {
 
     @Override
-    public void configure(LoggerContext loggerContext) {
+    public ExecutionStatus configure(LoggerContext loggerContext) {
         addInfo("Setting up default configuration.");
 
         DefaultConsoleAppender consoleAppender = new DefaultConsoleAppender();
@@ -20,6 +20,8 @@ public class DefaultLogbackConfigurator extends ContextAwareBase implements Conf
         Logger rootLogger = loggerContext.getLogger(Logger.ROOT_LOGGER_NAME);
         rootLogger.setLevel(Level.INFO);
         rootLogger.addAppender(consoleAppender);
+
+        return ExecutionStatus.NEUTRAL;
     }
 
 }

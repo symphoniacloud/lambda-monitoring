@@ -9,7 +9,7 @@ import ch.qos.logback.core.spi.ContextAwareBase;
 public class DefaultMetricsLogbackConfigurator extends ContextAwareBase implements Configurator {
 
     @Override
-    public void configure(LoggerContext loggerContext) {
+    public ExecutionStatus configure(LoggerContext loggerContext) {
         addInfo("Setting up default configuration.");
 
         NonMetricsConsoleAppender nonMetricsConsoleAppender = new NonMetricsConsoleAppender();
@@ -26,6 +26,8 @@ public class DefaultMetricsLogbackConfigurator extends ContextAwareBase implemen
         rootLogger.setLevel(Level.INFO);
         rootLogger.addAppender(nonMetricsConsoleAppender);
         rootLogger.addAppender(metricsConsoleAppender);
+
+        return ExecutionStatus.NEUTRAL;
     }
 
 }

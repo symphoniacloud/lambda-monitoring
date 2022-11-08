@@ -1,7 +1,7 @@
 package io.symphonia.lambda.metrics;
 
 import com.codahale.metrics.Gauge;
-import com.codahale.metrics.JvmAttributeGaugeSet;
+import com.codahale.metrics.jvm.JvmAttributeGaugeSet;
 import com.codahale.metrics.Metric;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.MetricSet;

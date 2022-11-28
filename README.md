@@ -1,3 +1,5 @@
+This project is no longer maintined. Check out [AWS Lambda Powertools for Java](https://awslabs.github.io/aws-lambda-powertools-java/) instead!
+
 # lambda-monitoring
 
 A collection of logging and metrics libraries for Java / JVM [AWS Lambdas](https://aws.amazon.com/lambda/).

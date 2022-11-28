@@ -1,4 +1,6 @@
-This project is no longer maintined. Check out [AWS Lambda Powertools for Java](https://awslabs.github.io/aws-lambda-powertools-java/) instead!
+**This project is no longer maintained. Check out [AWS Lambda Powertools for Java](https://awslabs.github.io/aws-lambda-powertools-java/) instead!**
+
+---
 
 # lambda-monitoring
 
